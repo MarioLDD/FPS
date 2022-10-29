@@ -11,13 +11,12 @@ public class PlayerController : MonoBehaviour
     private float verticalInput;
     public float rotacionSpeed = 150;
     private float rotacionInput;
-    public Rigidbody projectile;
-
-
+    public GameObject pointFire;
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+       
+       Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -35,13 +34,16 @@ public class PlayerController : MonoBehaviour
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
         transform.Rotate(Vector3.up * Time.deltaTime * rotacionSpeed * rotacionInput);
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("bomba va");
-            Rigidbody fire = Instantiate(projectile, transform.position, transform.rotation);
+
+            pointFire.GetComponent<Disparo>().Lanzar();
+          //  Rigidbody fire = Instantiate(projectile, transform.position, transform.rotation);
+            //fire.velocity = Vector3.
         }
 
-
+        
 
 
 

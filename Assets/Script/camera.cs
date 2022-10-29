@@ -26,6 +26,15 @@ public class camera : MonoBehaviour
 
         elevation = Mathf.Clamp(elevation + rotacionInput, minAngle, maxAngle);
         angleCam.localRotation = Quaternion.Euler(elevation, 0, 0);
-
+        
     }
+
+
+
+
+
+
+
+
+
 }
