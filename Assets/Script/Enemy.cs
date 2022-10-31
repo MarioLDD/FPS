@@ -21,12 +21,15 @@ public class Enemy : MonoBehaviour
     {
         playerAnim = GetComponent<Animator>();
         navigation = GetComponent<NavMeshAgent>();
+        navigation.destination = target.position;
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        navigation.destination = target.position;
+
         // Debug.Log(navigation.desiredVelocity.magnitude);       velocidad definida
         //  Debug.Log(navigation.speed);  velocidad definida
 
@@ -70,69 +73,57 @@ public class Enemy : MonoBehaviour
             {
                 if (oA < oB)
                 {
-                    // oA
-                    Debug.Log("cerca de A");
+                    //Debug.Log("cerca de A");
+                    navigation.SetDestination(new Vector3(transform.position.x, transform.position.y, a.position.z - 15));
                 }
                 else
                 {
-                    // oB
-                    Debug.Log("cerca de B");
+                    //Debug.Log("cerca de B");
+                    navigation.SetDestination(new Vector3(b.position.x - 15, transform.position.y, transform.position.z));
                 }
             }
             else
             {
                 if (oA < oD)
                 {
-                    // oA
-                    Debug.Log("cerca de A");
-
+                    //Debug.Log("cerca de A");
+                    navigation.SetDestination(new Vector3(transform.position.x, transform.position.y, a.position.z - 15));
                 }
                 else
                 {
-                    //oD
-                    Debug.Log("cerca de D");
-
+                    //Debug.Log("cerca de D");
+                    navigation.SetDestination(new Vector3(d.position.x + 15, transform.position.y, transform.position.z));
                 }
             }
         }
         else
         {
-
             if (oB < oD)
             {
                 if (oC < oB)
                 {
-                    // oC
-                    Debug.Log("cerca de C");
-
+                    //Debug.Log("cerca de C");
+                    navigation.SetDestination(new Vector3(transform.position.x, transform.position.y, c.position.z + 15));
                 }
                 else
                 {
-                    // oB
-                    Debug.Log("cerca de B");
-
+                    //Debug.Log("cerca de B");
+                    navigation.SetDestination(new Vector3(b.position.x - 15, transform.position.y, transform.position.z));
                 }
             }
             else
             {
                 if (oC < oD)
                 {
-                    // oC
-                    Debug.Log("cerca de C");
-
+                    //Debug.Log("cerca de C");
+                    navigation.SetDestination(new Vector3(transform.position.x, transform.position.y, c.position.z + 15));
                 }
                 else
                 {
-                    //oD
-                    Debug.Log("cerca de D");
-
+                    //Debug.Log("cerca de D");
+                    navigation.SetDestination(new Vector3(d.position.x + 15, transform.position.y, transform.position.z));
                 }
             }
-
         }
-
-
-
-       
     }
 }
