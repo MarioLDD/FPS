@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("bomba va");
+            //Debug.Log("bomba va");
 
             pointFire.GetComponent<Disparo>().Lanzar();
           //  Rigidbody fire = Instantiate(projectile, transform.position, transform.rotation);
