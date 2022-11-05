@@ -20,60 +20,48 @@ public class Enemy : MonoBehaviour
 
     public GameObject randomActivador;
     string casa;
+    public bool state;
 
 
     void Start()
     {
         playerAnim = GetComponent<Animator>();
         navigation = GetComponent<NavMeshAgent>();
-        // navigation.destination = target.position;
 
+        Walk();
+
+        state = true;
         InvokeRepeating("RandomFunction", 2f, 5);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+
         // Debug.Log(navigation.desiredVelocity.magnitude);       velocidad definida
         //  Debug.Log(navigation.speed);  velocidad definida
 
         // Debug.Log(navigation.velocity.magnitude);   velocidad del movimiento
 
+        /*
         if (navigation.velocity.magnitude > 0)
         {
-            Walk();
-            //   Run();
         }
         else
         {
           //  playerAnim.SetFloat("RandomFunction", 0f);
         }
-
-
-        void Walk()
-        {
-            playerAnim.SetFloat("Speed_f", 0.26f);
-            playerAnim.SetBool("Static_b", true);
-        }
-        /*
-        void Run()
-        {
-            playerAnim.SetFloat("Speed_f", 0.51f);
-            playerAnim.SetBool("Static_b", true);
-        }
         */
+
+
+
+
+
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Bomb"))
         {
-
-            casa = randomActivador.GetComponent<RandomActivadorScript>().EnemyToTarget();
-            Debug.Log(casa);
-
-            /*
             float oA = Vector3.Distance(transform.position, a.transform.position);
             float oB = Vector3.Distance(transform.position, b.transform.position);
             float oC = Vector3.Distance(transform.position, c.transform.position);
@@ -137,43 +125,37 @@ public class Enemy : MonoBehaviour
                     }
                 }
             }
-            */
+
 
         }
 
         if (collision.gameObject.CompareTag("Bounds"))
         {
-            Debug.Log("choco");
+            Debug.Log("chocó");
             Destroy(gameObject);
-
         }
     }
 
     void RandomFunction()
     {
-       
-
-        if (i != 5)
-        {
-
-            navigation.destination = new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50));
-            Debug.Log(i);
-            i++;
-
-        }
-        else
-        {
-            CancelInvoke();
-            Debug.Log("estoy fuera");
-        }
-
+        if(state)
+        navigation.destination = new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50));
     }
 
-
-
-
-
-
+    public void Walk()
+    {
+        navigation.speed = 3.5f;
+        playerAnim.SetFloat("Speed_f", 0.26f);
+        playerAnim.SetBool("Static_b", true);
+    }
+    public void Run()
+    {
+        navigation.speed = 5f;
+        navigation.destination = target.position;
+        playerAnim.SetFloat("Speed_f", 0.51f);
+        playerAnim.SetBool("Static_b", true);
+        state = false;
+    }
 }
 
 

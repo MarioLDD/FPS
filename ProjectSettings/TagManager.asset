@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bounds
   - Bomb
+  - Enemy
   layers:
   - Default
   - TransparentFX
