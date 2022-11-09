@@ -1,20 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RandomActivadorScript : MonoBehaviour
 {
     public int enemySelect;
     public GameObject[] enemyList;
     GameObject actualEnemy;
-
+    private int enemyCounter;
 
 
     // Start is called before the first frame update
     void Start()
     {
         enemyList = GameObject.FindGameObjectsWithTag("Enemy");
-
+        enemyCounter = enemyList.Length;
         // InvokeRepeating("EnemyToTarget", 0f, 12f);
     }
 
@@ -22,6 +23,12 @@ public class RandomActivadorScript : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyUp(KeyCode.P)) EnemyToTarget();
+
+        if (enemyCounter == 0)
+        {
+            SceneManager.LoadScene("WinMenu");
+            Debug.Log("GameOver");
+        }
     }
     //12 segundos
 
@@ -32,11 +39,15 @@ public class RandomActivadorScript : MonoBehaviour
         if (enemyList[enemySelect].GetComponent<Enemy>().state)
 
         {
+            enemyCounter -= 1;
             enemyList[enemySelect].GetComponent<Enemy>().Run();
             actualEnemy = enemyList[enemySelect];
             Debug.Log(actualEnemy.name);
+
         }
         else EnemyToTarget();
 
-        }
+    }
+
+
 }

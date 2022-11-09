@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent navigation;
     public Transform target;
     public int i = 1;
-    public float StartTime = 2f;
+
 
     public Transform a;
     public Transform b;
@@ -19,7 +19,6 @@ public class Enemy : MonoBehaviour
     public Transform d;
 
     public GameObject randomActivador;
-    string casa;
     public bool state;
 
 
@@ -31,7 +30,7 @@ public class Enemy : MonoBehaviour
         Walk();
 
         state = true;
-        InvokeRepeating("RandomFunction", StartTime, 5);
+        InvokeRepeating("RandomNav", 2f, 5);
     }
 
     void Update()
@@ -136,7 +135,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void RandomFunction()
+    void RandomNav()
     {
         if(state)
         navigation.destination = new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50));

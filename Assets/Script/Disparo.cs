@@ -5,19 +5,7 @@ using UnityEngine;
 public class Disparo : MonoBehaviour
 {
     public Rigidbody projectile;
-    public Transform lala;
     public float fireSpeed = 10;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public void Lanzar()
     {
         Rigidbody fire = Instantiate(projectile, transform.position, transform.rotation);
@@ -25,10 +13,6 @@ public class Disparo : MonoBehaviour
         Vector3 worldDirection = transform.rotation * Vector3.forward;
 
         fire.velocity = worldDirection * fireSpeed;
-
-
-
-
 
     }
 }
