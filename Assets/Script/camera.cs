@@ -21,20 +21,12 @@ public class camera : MonoBehaviour
     void Update()
     {
         rotacionInput = -Input.GetAxis("Mouse Y");
-        transform.Rotate(Vector3.right * Time.deltaTime * rotacionSpeed * rotacionInput);
+       // transform.Rotate(Vector3.right * Time.deltaTime * rotacionSpeed * rotacionInput);
 
 
         elevation = Mathf.Clamp(elevation + rotacionInput, minAngle, maxAngle);
         angleCam.localRotation = Quaternion.Euler(elevation, 0, 0);
-        
+
     }
-
-
-
-
-
-
-
-
 
 }

@@ -4,22 +4,18 @@ using UnityEngine;
 
 public class Balls : MonoBehaviour
 {
-    public float TimeD = 3f;
+    public float TimeD = 5f;
+
     void Start()
     {
-        Invoke("Destroy", TimeD);
-
+        Destroy(gameObject, TimeD);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        
-    }
-
-
-    void Destroy()
-    {
-        Destroy(gameObject);
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

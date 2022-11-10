@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
 {
     private Animator playerAnim;
     public NavMeshAgent navigation;
-    public Transform target;
+    public Transform treeTarget;
     public int i = 1;
 
 
@@ -61,6 +61,9 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bomb"))
         {
+            Debug.Log("le pegue");
+            CancelInvoke();
+            navigation.speed = 10f;
             float oA = Vector3.Distance(transform.position, a.transform.position);
             float oB = Vector3.Distance(transform.position, b.transform.position);
             float oC = Vector3.Distance(transform.position, c.transform.position);
@@ -72,26 +75,26 @@ public class Enemy : MonoBehaviour
                 {
                     if (oA < oB)
                     {
-                        //Debug.Log("cerca de A");
-                        navigation.SetDestination(new Vector3(transform.position.x, transform.position.y, a.position.z - 15));
+                        Debug.Log("cerca de A");
+                        navigation.SetDestination(new Vector3(transform.position.x, transform.position.y, a.position.z));
                     }
                     else
                     {
-                        //Debug.Log("cerca de B");
-                        navigation.SetDestination(new Vector3(b.position.x - 15, transform.position.y, transform.position.z));
+                        Debug.Log("cerca de B");
+                        navigation.SetDestination(new Vector3(b.position.x, transform.position.y, transform.position.z));
                     }
                 }
                 else
                 {
                     if (oA < oD)
                     {
-                        //Debug.Log("cerca de A");
-                        navigation.SetDestination(new Vector3(transform.position.x, transform.position.y, a.position.z - 15));
+                        Debug.Log("cerca de A");
+                        navigation.SetDestination(new Vector3(transform.position.x, transform.position.y, a.position.z));
                     }
                     else
                     {
-                        //Debug.Log("cerca de D");
-                        navigation.SetDestination(new Vector3(d.position.x + 15, transform.position.y, transform.position.z));
+                        Debug.Log("cerca de D");
+                        navigation.SetDestination(new Vector3(d.position.x, transform.position.y, transform.position.z));
                     }
                 }
             }
@@ -101,26 +104,26 @@ public class Enemy : MonoBehaviour
                 {
                     if (oC < oB)
                     {
-                        //Debug.Log("cerca de C");
-                        navigation.SetDestination(new Vector3(transform.position.x, transform.position.y, c.position.z + 15));
+                        Debug.Log("cerca de C");
+                        navigation.SetDestination(new Vector3(transform.position.x, transform.position.y, c.position.z));
                     }
                     else
                     {
-                        //Debug.Log("cerca de B");
-                        navigation.SetDestination(new Vector3(b.position.x - 15, transform.position.y, transform.position.z));
+                        Debug.Log("cerca de B");
+                        navigation.SetDestination(new Vector3(b.position.x, transform.position.y, transform.position.z));
                     }
                 }
                 else
                 {
                     if (oC < oD)
                     {
-                        //Debug.Log("cerca de C");
-                        navigation.SetDestination(new Vector3(transform.position.x, transform.position.y, c.position.z + 15));
+                        Debug.Log("cerca de C");
+                        navigation.SetDestination(new Vector3(transform.position.x, transform.position.y, c.position.z));
                     }
                     else
                     {
-                        //Debug.Log("cerca de D");
-                        navigation.SetDestination(new Vector3(d.position.x + 15, transform.position.y, transform.position.z));
+                        Debug.Log("cerca de D");
+                        navigation.SetDestination(new Vector3(d.position.x, transform.position.y, transform.position.z));
                     }
                 }
             }
@@ -150,7 +153,7 @@ public class Enemy : MonoBehaviour
     public void Run()
     {
         navigation.speed = 5f;
-        navigation.destination = target.position;
+        navigation.destination = treeTarget.position;
         playerAnim.SetFloat("Speed_f", 0.51f);
         playerAnim.SetBool("Static_b", true);
         state = false;
