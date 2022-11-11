@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
     public Transform c;
     public Transform d;
 
-    public GameObject randomActivador;
+    public GameObject enemyController;
     public bool state;
 
 
@@ -134,7 +134,9 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.CompareTag("Bounds"))
         {
             Debug.Log("chocó");
+            enemyController.gameObject.GetComponent<EnemyController>().EnemyKilled();
             Destroy(gameObject);
+            
         }
     }
 

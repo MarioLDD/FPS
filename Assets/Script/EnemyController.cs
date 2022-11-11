@@ -16,7 +16,7 @@ public class EnemyController : MonoBehaviour
     {
         enemyList = GameObject.FindGameObjectsWithTag("Enemy");
         enemyCounter = enemyList.Length;
-         InvokeRepeating("EnemyToTarget", 0f, 12f);
+         InvokeRepeating("EnemyToTarget", 20f, 12f);
     }
 
     // Update is called once per frame
@@ -35,7 +35,6 @@ public class EnemyController : MonoBehaviour
         if (enemyList[enemySelect].GetComponent<Enemy>().state)
 
         {
-            enemyCounter -= 1;
             enemyList[enemySelect].GetComponent<Enemy>().Run();
             actualEnemy = enemyList[enemySelect];
             Debug.Log(actualEnemy.name);
@@ -45,5 +44,12 @@ public class EnemyController : MonoBehaviour
 
     }
 
-
+    public void EnemyKilled()
+    {
+        enemyCounter--;
+        if(enemyCounter == 0)
+        {
+            SceneManager.LoadScene("WinMenu");
+        }
+    }
 }

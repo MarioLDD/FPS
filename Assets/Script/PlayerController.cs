@@ -66,6 +66,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Food"))
+        {
+            Debug.Log("comidaaaa");
+            Destroy(other.gameObject);
+            pointFire.GetComponent<Disparo>().Reload();
+        }
+    }
+
+
+
 }
 
 

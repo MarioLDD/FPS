@@ -1,20 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+
 
 public class Disparo : MonoBehaviour
 {
+    public TMP_Text ammunitionUI;
     public Rigidbody projectile;
-    public float fireSpeed = 10;
+    public float fireSpeed = 10f;
+    public int ammunition = 10;
 
+    void Start()
+    {
+        ammunitionUI.text = ammunition.ToString();
+
+    }
     public void Lanzar()
     {
-        Rigidbody fire = Instantiate(projectile, transform.position, transform.rotation);
+        if (ammunition > 0)
+        {
+            ammunition -= 1;
 
-        Vector3 worldDirection = transform.rotation * Vector3.forward;
+            ammunitionUI.text = ammunition.ToString();
 
-        fire.velocity = worldDirection * fireSpeed;
+            Rigidbody fire = Instantiate(projectile, transform.position, transform.rotation);
+
+            Vector3 worldDirection = transform.rotation * Vector3.forward;
+
+            fire.velocity = worldDirection * fireSpeed;
+
+        }
     }
+
+    public void Reload()
+    {
+        ammunition += 10;
+        ammunitionUI.text = ammunition.ToString();
+    }
+
+
+
+
 }
 
 
