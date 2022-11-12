@@ -156,19 +156,22 @@ public class Enemy : MonoBehaviour
         if (randomState)
         {
             navigation.destination = new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50));
+            Walk();
         }
 
-        Walk();
+       
     }
 
     public void Walk()
     {
+        Debug.Log("Walking");
         navigation.speed = 3.5f;
         playerAnim.SetFloat("Speed_f", 0.26f);
         playerAnim.SetBool("Static_b", true);
     }
     public void Run()
     {
+        Debug.Log("RUNNNNN");
         navigation.speed = 5f;
         navigation.destination = treeTarget.position;
         playerAnim.SetFloat("Speed_f", 0.51f);

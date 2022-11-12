@@ -43,8 +43,8 @@ public class EnemyController : MonoBehaviour
 
         {
             enemyList[enemySelect].GetComponent<Enemy>().Run();
-            actualEnemy = enemyList[enemySelect];
-            Debug.Log(actualEnemy.name);
+            actualEnemy = enemyList[enemySelect];       //sacar
+            Debug.Log(actualEnemy.name);                //sacar
 
         }
         else EnemyToTarget();
@@ -70,8 +70,8 @@ public class EnemyController : MonoBehaviour
 
         if(eggsRemaining == 0)
         {
-            Time.timeScale = 0f;
-            //SceneManager.LoadScene("GameOverMenu");
+           // Time.timeScale = 0f;
+            SceneManager.LoadScene("GameOverMenu");
         }
     }
 }
