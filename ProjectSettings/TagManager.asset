@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Ground
   - Food
+  - TargetTree
   layers:
   - Default
   - TransparentFX

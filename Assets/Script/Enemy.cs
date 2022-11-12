@@ -10,26 +10,27 @@ public class Enemy : MonoBehaviour
     private Animator playerAnim;
     public NavMeshAgent navigation;
     public Transform treeTarget;
-    public int i = 1;
-
+    public GameObject enemyController;
 
     public Transform a;
     public Transform b;
     public Transform c;
     public Transform d;
 
-    public GameObject enemyController;
+    public bool randomState;
+    public bool targetState;
     public bool state;
 
 
     void Start()
     {
+        state = true;
+        randomState = true;
+        targetState = true;
+
         playerAnim = GetComponent<Animator>();
         navigation = GetComponent<NavMeshAgent>();
 
-        Walk();
-
-        state = true;
         InvokeRepeating("RandomNav", 2f, 5);
     }
 
@@ -41,29 +42,24 @@ public class Enemy : MonoBehaviour
 
         // Debug.Log(navigation.velocity.magnitude);   velocidad del movimiento
 
-        /*
-        if (navigation.velocity.magnitude > 0)
+
+        if (navigation.velocity.magnitude < 1)
         {
+            playerAnim.SetFloat("Speed_f", 0f);
+            playerAnim.SetBool("Static_b", true);
         }
-        else
-        {
-          //  playerAnim.SetFloat("RandomFunction", 0f);
-        }
-        */
-
-
-
-
-
+        
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Bomb"))
+        if (collision.gameObject.CompareTag("Bomb") && state)
         {
-            Debug.Log("le pegue");
+           // Debug.Log("le pegue");
             CancelInvoke();
-            navigation.speed = 10f;
+
+            Escape();
+
             float oA = Vector3.Distance(transform.position, a.transform.position);
             float oB = Vector3.Distance(transform.position, b.transform.position);
             float oC = Vector3.Distance(transform.position, c.transform.position);
@@ -127,23 +123,42 @@ public class Enemy : MonoBehaviour
                     }
                 }
             }
+            state = false;
 
-
+            enemyController.gameObject.GetComponent<EnemyController>().EnemyKilled();
         }
 
         if (collision.gameObject.CompareTag("Bounds"))
         {
-            Debug.Log("chocó");
-            enemyController.gameObject.GetComponent<EnemyController>().EnemyKilled();
+            //  Debug.Log("chocó");
+
             Destroy(gameObject);
-            
+
         }
+
+        if (collision.gameObject.CompareTag("TargetTree") && targetState)
+        {
+            targetState = false;
+            enemyController.gameObject.GetComponent<EnemyController>().EggsCount();
+            Debug.Log("eggsssss");
+        }
+
+
+
+
+
+
+
     }
 
     void RandomNav()
     {
-        if(state)
-        navigation.destination = new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50));
+        if (randomState)
+        {
+            navigation.destination = new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50));
+        }
+
+        Walk();
     }
 
     public void Walk()
@@ -158,7 +173,13 @@ public class Enemy : MonoBehaviour
         navigation.destination = treeTarget.position;
         playerAnim.SetFloat("Speed_f", 0.51f);
         playerAnim.SetBool("Static_b", true);
-        state = false;
+        randomState = false;
+    }
+    void Escape()
+    {
+        navigation.speed = 10f;
+        playerAnim.SetFloat("Speed_f", 0.51f);
+        playerAnim.SetBool("Static_b", true);
     }
 }
 
